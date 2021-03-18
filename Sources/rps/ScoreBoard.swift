@@ -73,6 +73,13 @@ class ScoreBoard {
 		// calculate max character width of formatted throw_counts values for all players
 		//max_width = max(len(str("{:,}".format(max(player.throw_counts.values())))) for player in players)
 
+		var maxWidth: Int = 0
+		for player in players {
+			for hand in Hand.allCases {
+				maxWidth = max(maxWidth, numberFormatter.string(from: NSNumber(value: player.throwCounts[hand] ?? 0))?.count ?? 0)
+			}
+		}
+
 		for player in players {
 			let winPercentage: Float = Float(player.wins) / Float(rounds)
 			print("\(player.name) won",
@@ -82,7 +89,9 @@ class ScoreBoard {
 
 			for hand in Hand.allCases {
 				let throwCountPercentage: Float = Float(player.throwCounts[hand] ?? 0) / Float(player.totalThrows)
-				print("\t\(hand):", numberFormatter.string(from: NSNumber(value: player.throwCounts[hand] ?? 0))!,
+				print("\t\(hand):".padding(toLength: 10, withPad: " ", startingAt: 0),
+					  numberFormatter.string(from: NSNumber(value: player.throwCounts[hand] ?? 0))!
+						.leftPadding(toLength: maxWidth, withPad: " "),
 					  "(" + percentFormatter.string(from: NSNumber(value: throwCountPercentage))! + ")")
 			}
 			print()
@@ -103,4 +112,15 @@ class ScoreBoard {
 		}
 	}
 
+}
+
+extension String {
+	func leftPadding(toLength: Int, withPad character: Character) -> String {
+		let stringLength = self.count
+		if stringLength < toLength {
+			return String(repeatElement(character, count: toLength - stringLength)) + self
+		} else {
+			return String(self.suffix(toLength))
+		}
+	}
 }
