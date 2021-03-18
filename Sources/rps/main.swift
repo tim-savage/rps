@@ -33,11 +33,11 @@ struct rps: ParsableCommand {
 		var count = 0
 		while count < rounds {
 			count += 1
-			scoreboard.printRoundHeader(count)
 			let round = Round(maxThrows: maxThrows, verbose: verbose)
-			let (winner, num_throws) = round.play(players: players)
-			scoreboard.scoreRound(winner, num_throws)
-			scoreboard.printRoundFooter()
+			round.printHeader(count)
+			let (winner, throwCount) = round.play(players: players)
+			scoreboard.scoreRound(winner: winner, throwCount: throwCount)
+			round.printFooter()
 		}
 		
 		// print results

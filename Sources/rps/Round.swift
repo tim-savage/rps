@@ -76,6 +76,22 @@ class Round {
 	}
 
 
+	func printHeader(_ n: Int) {
+		if verbose {
+			let lineLength = "Round \(n)".count
+			print("Round \(n)")
+			print(String(repeating: "-", count: lineLength))
+		}
+	}
+
+
+	func printFooter() {
+		if verbose {
+			print()
+		}
+	}
+
+
 	func printThrowHeader(_ n: Int) {
 		if verbose {
 			print("Throw \(n):")
@@ -85,7 +101,7 @@ class Round {
 
 	func printPlayerThrow(_ player: Player) {
 		if verbose {
-			print("\t \(player.name) throws \(player.currentHand)")
+			print("\t\(player.name) throws \(player.currentHand)")
 		}
 	}
 }

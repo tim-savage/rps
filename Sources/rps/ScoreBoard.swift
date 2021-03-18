@@ -22,7 +22,7 @@ class ScoreBoard {
 	}
 
 
-	func scoreRound(_ winner: Player?, _ throwCount: Int) {
+	func scoreRound(winner: Player?, throwCount: Int) {
 
 		cumulativeThrows += throwCount
 		mostThrows = max(throwCount, mostThrows)
@@ -102,22 +102,5 @@ class ScoreBoard {
 				  numberFormatter.string(from: NSNumber(value: mostThrows))!, "throws.")
 		}
 	}
-
-
-	func printRoundHeader(_ n: Int) {
-		if verbose {
-			let lineLength = "Round \(n)".count
-			print("Round \(n)")
-			print(String(repeating: "-", count: lineLength))
-		}
-	}
-
-
-	func printRoundFooter() {
-		if verbose {
-			print()
-		}
-	}
-
 
 }
