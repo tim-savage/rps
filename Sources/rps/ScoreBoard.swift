@@ -71,10 +71,15 @@ class ScoreBoard {
 
 
 		// calculate max character width of formatted throw counts values for all players
-		var maxWidth: Int = 0
+		var maxCountWidth: Int = 0
+		var maxPercentWidth: Int = 0
 		for player in players {
 			for hand in Hand.allCases {
-				maxWidth = max(maxWidth, numberFormatter.string(from: NSNumber(value: player.throwCounts[hand] ?? 0))?.count ?? 0)
+				maxCountWidth = max(maxCountWidth, numberFormatter
+										.string(from: NSNumber(value: player.throwCounts[hand] ?? 0))?.count ?? 0)
+				let throwCountPercentage: Float = Float(player.throwCounts[hand] ?? 0) / Float(player.totalThrows)
+				maxPercentWidth = max(maxPercentWidth, percentFormatter
+										.string(from: NSNumber(value: throwCountPercentage))?.count ?? 0)
 			}
 		}
 
@@ -89,8 +94,9 @@ class ScoreBoard {
 				let throwCountPercentage: Float = Float(player.throwCounts[hand] ?? 0) / Float(player.totalThrows)
 				print("\t\(hand):".padding(toLength: 10, withPad: " ", startingAt: 0),
 					  numberFormatter.string(from: NSNumber(value: player.throwCounts[hand] ?? 0))!
-						.leftPadding(toLength: maxWidth, withPad: " "),
-					  "(" + percentFormatter.string(from: NSNumber(value: throwCountPercentage))! + ")")
+						.leftPadding(toLength: maxCountWidth, withPad: " "),
+					  ("(" + percentFormatter.string(from: NSNumber(value: throwCountPercentage))! + ")")
+						.leftPadding(toLength: maxPercentWidth+2, withPad: " "))
 			}
 			print()
 		}
