@@ -32,5 +32,13 @@ class Player {
 		self.throwCounts[hand]! += 1
 		self.totalThrows += 1
 	}
+	
+	func getThrowRatio(_ hand: Hand) -> Float {
+		return Float(throwCounts[hand] ?? 0) / Float(totalThrows)
+	}
+
+	func getWinRatio(_ rounds: Int) -> Float {
+		return Float(wins) / Float(rounds)
+	}
 
 }
