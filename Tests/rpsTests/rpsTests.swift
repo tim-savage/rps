@@ -41,7 +41,4 @@ final class rpsTests: XCTestCase {
       #endif
     }
 
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }
